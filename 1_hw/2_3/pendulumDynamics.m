@@ -114,7 +114,7 @@ function sys=mdlDerivatives(t,x,u,P)
     B = [0 ; 1/(P.m*P.ell^2)];
      
   
-          
+    u = u + P.m*P.ell^2*(-A(2));
 
 
   
