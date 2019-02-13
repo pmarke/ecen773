@@ -19,3 +19,17 @@ lambda = eig(A)
 
 
    
+PHI1 = [exp(t)*cos(2*(t)) exp(-2*(t))*sin(2*(t));...
+       -exp(t)*sin(2*(t)) exp(-2*(t))*cos(2*(t))];
+   
+PHI2 = [exp(t0)*cos(2*(t0)) exp(-2*(t0))*sin(2*(t0));...
+       -exp(t0)*sin(2*(t0)) exp(-2*(t0))*cos(2*(t0))];
+
+% Property 5.3 states
+% PHI(t,s)PHI(s,tau) = PHI(t,tau)
+
+% Property 5.4 states
+% PHI(t,tau)^-1 = PHI(tau,t)
+   
+temp = PHI1*inv(PHI2);
+simplify(temp)
