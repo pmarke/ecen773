@@ -30,7 +30,8 @@ A = [0    1  0         0;...
  T_M3 = w(3,:)*B(:,2);       % Third mode
  T_M4 = w(4,:)*B(:,2);       % Fourth mode
  
- %% d) Determine an initial condition xo sucht that if x(0) = xo, then x(t)
+ %% d) 
+ % Determine an initial condition xo such that if x(0) = xo, then x(t)
  % -> 0 ans t -> inf;
  % We need xo to not affect the nodes where the eigen values are non zero.
  % this can be done by constucting xo to be in the null space of wk that
@@ -50,8 +51,13 @@ A = [0    1  0         0;...
 %  expm(J*80)*temp   %machine precision error
  
 %% e
+% If the rank of the controllability matrix is the same as the number of
+% states, then the system is fully controllable.
+
 % Controllability matrix with only force
 CO_F = ctrb(A,B(:,1));
+rank(CO_F);
 
 % Controllability matrix with only torque
 CO_T = ctrb(A,B(:,2));
+rank(CO_T);

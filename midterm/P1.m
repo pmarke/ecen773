@@ -8,15 +8,16 @@ D = 5;
 
 %% a)
 
-%% b)
+%% b)  Eigen value decomposition
 [V,J] = jordan(A);
+% Compute the state stransition matrix
 syms t;
 V*expm(J*t)*inv(V);
 
-%% c)
+%% c) Cayley-Hamilton
 A^2 - eye(2)
 
-%% d)
-
+%% d) Find the state transfer function G(s)
+% G(s) = C*inv(SI-A)*B + D
 syms s;
 C*inv(s*eye(2)-A)*B + D

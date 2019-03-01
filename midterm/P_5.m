@@ -1,4 +1,4 @@
-%Problem 5
+%%Problem 5
 
 
 % Verify transfer function
@@ -27,4 +27,4 @@ G = C*inv(s*eye(5)-A)*B;
 G = simplify(G);
 
 % Compute the Jordan normal form of the matrix A
-[V,J] = jordan(A);
+[V,J] = jordan(A)
