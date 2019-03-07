@@ -92,3 +92,16 @@ legend("Pitch Angle(t)","Pitch Angle")
 %% e)
 
 A*xd
+
+%% Question 7
+
+% Find a state feedback control u = -kx that puts the poles 15x further to
+% the left i nthe complex plane. Pick poles that will maintain the original
+% ratio.
+
+lambda = eig(A);    % Get the original eigen values of A
+K = place(A,B,15*lambda);
+
+SYS = ss(A-B*K,be,eye(4),0);
+figure(2)
+step(SYS)
