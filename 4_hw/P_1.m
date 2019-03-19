@@ -83,3 +83,20 @@ B = [0 0;...
  C_bar(:,1)*inv(s - A_bar(1,1))*B_bar(1)
  
  C_bar*inv(s*eye(2)-A_bar)*B_bar
+ 
+ %% Problem 4
+ A = [ 6  4  1;...
+     -5 -4  0;...
+     -4 -3 -1];
+ 
+ B = [1 -1 -1]';
+ 
+ alpha = charpoly(A);
+ 
+ C = ctrb(A,B);
+ 
+ temp = [1 alpha(2), alpha(3);...
+         0   1        alpha(2);...
+         0   0           1];
+     
+ T = C*temp
