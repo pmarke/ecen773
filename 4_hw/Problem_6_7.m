@@ -100,8 +100,31 @@ A*xd
 % ratio.
 
 lambda = eig(A);    % Get the original eigen values of A
-K = place(A,B,15*lambda);
 
-SYS = ss(A-B*K,be,eye(4),0);
+
+% Form the characteristic polynomial for both modes
+% S^2 + 2*eta*wn*s + wn^2    
+a1 = -lambda(1)-lambda(2);
+a2 = -lambda(1)*-lambda(2);
+wn1 = sqrt(a2);
+eta1 = a1/wn1/2;
+
+b1 = -lambda(3)-lambda(4);
+b2 = -lambda(3)*-lambda(4);
+wn2 = sqrt(b2);
+eta2 = b2/wn2/2;
+
+p1 = -eta1*wn1*15 + wn1*sqrt(1-eta1^2);
+p2 = -eta1*wn1*15 - wn1*sqrt(1-eta1^2);
+
+p3 = -eta2*wn2*15 + wn2*sqrt(1-eta2^2);
+p4 = -eta2*wn2*15 - wn2*sqrt(1-eta2^2);
+
+K = place(A,B,[p1,p2,p3,p4]);
+
+SYS_OL = ss(A,be,eye(4),0);
+SYS_cl = ss(A-B*K,be,eye(4),0);
 figure(2)
-step(SYS)
+step(SYS_OL)
+hold on
+step(SYS_cl)

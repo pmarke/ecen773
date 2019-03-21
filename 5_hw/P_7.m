@@ -36,10 +36,10 @@ L = place(A',C',p*10)';
 
 %% d)
 
-zo = [350 0.1 0.1 0.3]';
-z_hat_o = [200 -0.3, 0.3,-0.1]';
+zo = [20 0.1 0.1 0.3]';
+z_hat_o = [22 0, 0,0]';
 xo = [zo;z_hat_o];
-xd = [200 -0.1 0 -0.1]';
+xd = [0 0 0 0]';
 
 [t,x] = ode45(@(t,x) aircraftDynamics(t,x,xd*0,A,B,C,K,L),[0 5],xo);
 
@@ -94,7 +94,7 @@ xlabel('t')
 ylabel('rads')
 
 %% f
-xd = [250 0.7 0.1 0]'
+xd = [20 0 0 0]';
 [t,x] = ode45(@(t,x) aircraftDynamics(t,x,xd,A,B,C,K,L),[0 5],xo);
 
 t = t(1:10:length(t));

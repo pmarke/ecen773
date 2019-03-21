@@ -49,6 +49,7 @@ rank(obsv(A,C));
 
 %%% b) Compute a matrix k such that A+kc has the eigen values of -1
 syms s k1 k2 k3 real;
+K = [k1 k2 k3]';
 temp = A+K*C;            % Put this in control cononical form
 alpha = charpoly(temp);
 Cr = [B temp*B, temp^2*B];
@@ -59,6 +60,16 @@ ACc = simplify(inv(T)*temp*T);
 a = [1 0 1; -4 1 -2; 4 -1 1];
 b = [-6 0 -2]';
 K = [a \ b];
+
+%%% c)
+f = [-9 -74 -24];
+
+temp = A-B*k1*C;
+alpha = charpoly(temp);
+Cr = [B temp*B, temp^2*B];
+T = Cr*[1 alpha(2) alpha(3); 0 1 alpha(2); 0 0 1];
+ACc = simplify(inv(T)*temp*T)
+
 
 %% Question 4
 clear
@@ -88,4 +99,13 @@ syms a1 a2 a3 a4 c1 c2 c3 c4 b1 b2 b3 b4 real
 A = diag([a1,a2,a3,a4])
 C = [c1 c2 c3 c4]
 B = [b1 b2 b3 b4]'
+
+%%% d)
+
+A = [1 1; 1 0];
+C = [1 0];
+B = [1;0];
+
+rank(ctrb(A,B))
+rank(obsv(A,C))
 
