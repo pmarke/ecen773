@@ -20,13 +20,13 @@ eo = x_hato - xo;      % Initial error
 
 syms l1 l2
 
-eqn = e_15 == expm((A-[l1,l2]'*C)*60)*eo;
+eqn = e_15 == expm((A-[l1,l2]'*C)*15)*eo;
 
 [L1,L2] = vpasolve(eqn,[l1,l2]);
 L = double([L1;L2]);
 
 % Test
-expm((A-L*C)*60)*eo;
+expm((A-L*C)*15)*eo;
 
 %%% b)
 % Using the observer gain L designed in part A. Plot how the estimated
