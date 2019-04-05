@@ -4,8 +4,7 @@ zeta = 2;
 wn = 1.5;
 
 % System
-A = [0 1;...
-     -2*zeta*wn wn^2]; 
+A = [0 1; -wn^2 -2*zeta*wn]; 
 C = [1 0];
 B = [0 1]';
 
@@ -23,7 +22,7 @@ syms l1 l2
 eqn = e_15 == expm((A-[l1,l2]'*C)*15)*eo;
 
 [L1,L2] = vpasolve(eqn,[l1,l2]);
-L = double([L1;L2]);
+L = double([L1;L2])
 
 % Test
 expm((A-L*C)*15)*eo;

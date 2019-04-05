@@ -20,11 +20,11 @@ A = [-2 0 0 0;...
  
  syms s; 
  tf3 = C*inv(s*eye(4) - A)*B + D; 
- simplify(tf3)
+ simplify(tf3);
  
  %%% b) Determine if this realization is controllable and/or observable
- rank(ctrb(A,B))
- rank(obsv(A,C))
+ ctrb_AB = rank(ctrb(A,B))
+ obvs_AC = rank(obsv(A,C))
  
  %%% c) 
  A2 = [-2 0; 1 0];
@@ -32,9 +32,9 @@ A = [-2 0 0 0;...
  C2 = [ 1 2; 1 0];
  D2 = [1;0]
  
-simplify(C2*inv(s*eye(2)-A2)*B2 + D2)
-rank(ctrb(A2,B2))
-rank(obsv(A2,C2))
+simplify(C2*inv(s*eye(2)-A2)*B2 + D2);
+ctrb_AB_new = rank(ctrb(A2,B2))
+Obvs_AC_new = rank(obsv(A2,C2))
 
 %% Question 3
 clear
@@ -68,7 +68,7 @@ temp = A-B*k1*C;
 alpha = charpoly(temp);
 Cr = [B temp*B, temp^2*B];
 T = Cr*[1 alpha(2) alpha(3); 0 1 alpha(2); 0 0 1];
-ACc = simplify(inv(T)*temp*T)
+ACc = simplify(inv(T)*temp*T);
 
 
 %% Question 4
@@ -79,8 +79,8 @@ B = eye(2);
 C = [-1 1];
 D = [2 1];
 % A realization is minimal if it is both observable and controllable
-rank(ctrb(A,B))
-rank(obsv(A,C))
+ctrb_AB = rank(ctrb(A,B))
+obvs_AC = rank(obsv(A,C))
 T = [-1 1; 1 1];
 A_bar = inv(T)*A*T;
 B_bar = inv(T)*B;
@@ -90,15 +90,15 @@ Boc = B_bar(1,:);
 Coc = C_bar(1);
 
 syms s
-C*inv(s*eye(2)-A)*B + D
-Coc*inv(s-Aoc)*Boc + D
+simplify(C*inv(s*eye(2)-A)*B + D)
+simplify(Coc*inv(s-Aoc)*Boc + D)
 
 %% Question 5
 clear
 syms a1 a2 a3 a4 c1 c2 c3 c4 b1 b2 b3 b4 real
-A = diag([a1,a2,a3,a4])
-C = [c1 c2 c3 c4]
-B = [b1 b2 b3 b4]'
+A = diag([a1,a2,a3,a4]);
+C = [c1 c2 c3 c4];
+B = [b1 b2 b3 b4]';
 
 %%% d)
 
