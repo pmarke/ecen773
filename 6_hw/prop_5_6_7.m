@@ -24,7 +24,7 @@ rank_2 = rank(subs(P,2))
 rank_1 = rank(subs(P,-1))
 rank_0 = rank(subs(P,0))
 
-% Invariant zeros are 0 and 2
+% Invariant zeros are 0, inf and 2
 
 %%% c) Transmission zeros are the invariant zeros that are not eigenvalues
 %%% of A.
@@ -64,11 +64,19 @@ uo = -nu(4:5);
 
 % opts = odeset('RelTol',1e-2,'AbsTol',1e-8);
 
-[t,x] = ode45(@(t,x) prob6(t,x,A,B,C,D,uo), [0 5],xo);
+[t,x] = ode45(@(t,x) prob6(t,x,A,B,C,D,uo), [0 2],xo);
 
 y = C*x';
 
 sum(y,2)
+
+syms t
+u = uo.*exp(0:0.01:2);
+
+[y,x] = lsim(ss(A,B,C,0),uo.*exp(0:0.01:5),0:0.01:5,xo);
+sum(y)
+
+
 
 function  dx = prob6(t,x,A,B,C,D,uo)
 
