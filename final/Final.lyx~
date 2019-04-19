@@ -863,6 +863,87 @@ d)
 \end_layout
 
 \begin_layout Standard
+The following system is observable.
+\begin_inset Formula 
+\begin{eqnarray*}
+\dot{x} & = & \begin{bmatrix}0 & 0\\
+t & 0
+\end{bmatrix}x+\begin{bmatrix}1\\
+e^{-t}
+\end{bmatrix}u\\
+y & = & \begin{bmatrix}e^{-2t} & 0\end{bmatrix}x
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+By definition 15.2 in the book: Given two times 
+\begin_inset Formula $t_{1}>t_{0}>0$
+\end_inset
+
+, the sytem is observable if its unobservable subspace contains only the
+ zero vector.
+ 
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $\Phi\left(t,t_{0}\right)$
+\end_inset
+
+be the state transition matrix of the system.
+\begin_inset Formula 
+\[
+\Phi(t,t_{0})=\begin{bmatrix}1 & 0\\
+t & 1
+\end{bmatrix}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+the unobservable space is the null space of 
+\begin_inset Formula 
+\begin{eqnarray*}
+\begin{bmatrix}e^{-2t} & 0\end{bmatrix}\begin{bmatrix}1 & 0\\
+t & 1
+\end{bmatrix}\\
+\begin{bmatrix}e^{-2t} & 0\end{bmatrix}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+thus 
+\begin_inset Formula $x_{2}$
+\end_inset
+
+is unobservable since it is always in the null space of 
+\begin_inset Formula $\begin{bmatrix}e^{-2t} & 0\end{bmatrix}$
+\end_inset
+
+.
+ So this statement is 
+\series bold
+false
+\series default
+.
+\end_layout
+
+\begin_layout Subsection*
+e)
+\end_layout
+
+\begin_layout Standard
 Controllability for an LTI system is invariant under any equivalence transformat
 ion.
 \end_layout
@@ -957,10 +1038,25 @@ With the disturbances being modelled as
 \end_inset
 
  and 
-\begin_inset Formula $ $
+\begin_inset Formula $N_{\theta}=10^{-5}I_{3x3}$
 \end_inset
 
+ and 
+\begin_inset Formula $N_{\omega}=10^{-10}I_{3x3}$
+\end_inset
 
+.
+ Provide implementation detail.
+ Also, provide plots showing how the controller would provide convergence
+ of your angles and angular rates to the equilibrium given the non zero
+ initial condition of: 
+\begin_inset Formula $x_{0}=\text{ones}(18,1)$
+\end_inset
+
+.
+ You may use only your controller to make the plots.
+ (i.e.
+ assume you have knowledge of the full states and ignore your observer).
 \end_layout
 
 \end_body
