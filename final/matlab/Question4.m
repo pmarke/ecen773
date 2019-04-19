@@ -70,7 +70,7 @@ Nk = diag([ones(3,1)*10^-5;ones(3,1)*10^-10]);
 
 [Kest,L,P] = kalman(ss(A,B,C,D),Dk,Nk);
 L
-eig(A-L*C)   % Ensure that the eigen values are all less than zero.
+eig(A-L*C);   % Ensure that the eigen values are all less than zero.
 
 %%% Plot the results of the controller.
 figure(1),clf;
@@ -126,6 +126,60 @@ max(abs(u),[],2);
 % The maximum values are [0.91;0.9905;0.9813]. Thus the system constraints
 % are satisfied.
 
+%% c)
+
+% I want to controll yaw to 1 radian. I need to find an equilibrium input
+% for this state such that Ax_d +Bu_eq = 0.
+x_d = zeros(18,1);
+x_d(1) = 1;          % Desired x_state.
+A*x_d;               % Since this value is zero, u_eq is also zero. This 
+                     % Simplifies the problem. 
+
+% Using section 23.6.1 in the book. I need my input to be
+% u = -K(x-x_d) + u_eq =>  -K(x-x_d)
 
 
+temp = zeros(18,1);
+temp(1) = 1;
+% Set it up such that x_dot = Ax -B*K(x-x_d) with a step input.
+[Y,T,X] = step(ss(A-B*K,+B*K*temp,C,0));
+
+% Plot the results. I am plotting X instead of Y because Y is not even
+% close to being the pointing angles and angular velocities.
+figure(3),clf;
+subplot(6,1,1);
+plot(T,X(:,1))
+title("Roll");
+xlabel('time (s)')
+ylabel('Radians');
+
+subplot(6,1,2);
+plot(T,X(:,2))
+title("Pitch");
+xlabel('time (s)')
+ylabel('Radians');
+
+subplot(6,1,3);
+plot(T,X(:,3))
+title("Yaw");
+xlabel('time (s)')
+ylabel('Radians');
+
+subplot(6,1,4);
+plot(T,X(:,10))
+title("Roll Rate");
+xlabel('time (s)')
+ylabel('Radians/sec');
+
+subplot(6,1,5);
+plot(T,X(:,11))
+title("Pitch Rate");
+xlabel('time (s)')
+ylabel('Radians/sec');
+
+subplot(6,1,6);
+plot(T,X(:,12))
+title("Yaw Rate");
+xlabel('time (s)')
+ylabel('Radians/sec');
 
