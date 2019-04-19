@@ -12,3 +12,20 @@ rank(ctrb(A,B2))
 
 % Observability testU
 rank(obsv(A,C))
+
+%% Question 3
+%%% a)
+A = [-2 4; 1 1];
+b = [1;1];
+C = [1 0];
+eig(A);
+
+syms s
+C*inv(s*eye(2)-A)*B;
+
+%%% b)
+syms t to
+PHI = [1 0; 1/2*(t^2-to^2) 1];
+A = diff(PHI,t)*inv(PHI)
+
+

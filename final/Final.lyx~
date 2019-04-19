@@ -324,7 +324,7 @@ Classify the linearized systems in terms of internal stability.
 \end_layout
 
 \begin_layout Standard
-Since both systems have the same state transition matrix (
+Since both systems have the same state transition model (
 \begin_inset Formula $A$
 \end_inset
 
@@ -339,7 +339,7 @@ Since both systems have the same state transition matrix (
 \end_inset
 
 thus the linearized systems are not internally stable since the state transition
- matrix has an eigen value with a real part larger than zero.
+ model has an eigen value with a real part larger than zero.
  This indicates that the nonlinear system is not internally stable about
  these points.
 \end_layout
@@ -416,6 +416,548 @@ Find an equivalent solution to the LQR problem as was derived in Lecture
 \tilde{u}(t) & = & e^{\beta t}u(t)
 \end{eqnarray*}
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using the change of variables
+\begin_inset Formula 
+\begin{eqnarray*}
+e^{-\beta t}\tilde{x}(t) & = & x(t)\\
+e^{-\beta t}\tilde{u}(t) & = & u(t)
+\end{eqnarray*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+-\beta e^{-\beta t}\tilde{x}+e^{-\beta t}\dot{\tilde{x}} & = & \dot{x}\\
+-\beta e^{-\beta t}\tilde{x}+e^{-\beta t}\dot{\tilde{x}} & = & Ae^{-\beta t}\tilde{x}+Be^{-\beta t}\tilde{u}\\
+-\beta\tilde{x}+\dot{\tilde{x}} & = & A\tilde{x}+B\tilde{u}\\
+\dot{\tilde{x}} & = & \left(A+I\beta\right)\tilde{x}+B\tilde{u}
+\end{eqnarray*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+x(0) & = & x_{0}\\
+e^{-\beta(0)}\tilde{x} & = & x_{0}\\
+\tilde{x}(0) & = & x_{0}
+\end{eqnarray*}
+
+\end_inset
+
+Using the functional
+\begin_inset Formula 
+\begin{eqnarray*}
+H(\tilde{x},\tilde{u}) & \coloneqq & -\int_{0}^{\infty}\left(\left(A+I\beta\right)\tilde{x}+B\tilde{u}\right)^{\top}P\tilde{x}+\tilde{x}^{\top}P\left(\left(A+I\beta\right)\tilde{x}+B\tilde{u}\right)dt\\
+ & \coloneqq & -\int_{0}^{\infty}\dot{\tilde{x}}^{\top}P\tilde{x}+\tilde{x}^{\top}P\dot{\tilde{x}}dt\\
+ & \coloneqq & -\int_{0}^{\infty}\frac{d\left(\tilde{x}^{\top}Px\right)}{dt}dt\\
+ & \coloneqq & \tilde{x}(0)P\tilde{x}(0)-\lim_{t\rightarrow\infty}\tilde{x}(t)P\tilde{x}(t)\\
+ & \coloneqq & \tilde{x}(0)P\tilde{x}(0)\\
+ & \coloneqq & x_{0}Px_{0}
+\end{eqnarray*}
+
+\end_inset
+
+as long as 
+\begin_inset Formula $\lim_{t\rightarrow\infty}\tilde{x}(t)$
+\end_inset
+
+=0.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\tilde{J}_{LQR} & = & \int_{0}^{\infty}e^{2\beta t}\left(e^{-\beta t}\tilde{x}^{\top}Qe^{-\beta t}\tilde{x}+e^{-\beta t}\tilde{u}^{\top}Re^{-\beta t}\tilde{u}\right)dt\\
+ & = & \int_{0}^{\infty}e^{2\beta t}\left(e^{-2\beta t}\tilde{x}^{\top}Q\tilde{x}+e^{-2\beta t}\tilde{u}^{\top}R\tilde{u}\right)dt\\
+ & = & \int_{0}^{\infty}\left(\tilde{x}^{\top}Q\tilde{x}+\tilde{u}^{\top}R\tilde{u}\right)dt\\
+ & = & H(\tilde{x},\tilde{u})+\int_{0}^{\infty}\left(\tilde{x}^{\top}Q\tilde{x}+\tilde{u}^{\top}R\tilde{u}\right)dt-H(\tilde{x},\tilde{u})\\
+ & = & H(\tilde{x},\tilde{u})+\int_{0}^{\infty}\left(\tilde{x}^{\top}Q\tilde{x}+\tilde{u}^{\top}R\tilde{u+\left(\left(A+I\beta\right)\tilde{x}+B\tilde{u}\right)^{\top}P\tilde{x}+\tilde{x}^{\top}P\left(\left(A+I\beta\right)\tilde{x}+B\tilde{u}\right)}\right)dt\\
+ & = & H(\tilde{x},\tilde{u})+\int_{0}^{\infty}\left(\tilde{x}^{\top}\left(\left(A+I\beta\right)^{\top}P+P\left(A+I\beta\right)+Q\right)\tilde{x}+\tilde{u}^{\top}R\tilde{u}+2\tilde{u}BP\tilde{x}\right)dt
+\end{eqnarray*}
+
+\end_inset
+
+By completing the squares
+\begin_inset Formula 
+\[
+\tilde{J}_{LQR}=H(\tilde{x},\tilde{u})+\int_{0}^{\infty}\tilde{x}^{\top}\left(\left(A+I\beta\right)^{\top}P+P\left(A+I\beta\right)+Q-PBR^{-1}B^{\top}P\right)\tilde{x}+\left(\tilde{u}^{\top}+\tilde{x}^{\top}K^{\top}\right)R\left(\tilde{u}+K\tilde{x}\right)dt
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $k=R^{-1}B^{\top}P$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+If we are able to select a positive definite matrix 
+\begin_inset Formula $P$
+\end_inset
+
+ such that the following Algebraic Ricatti Equation 
+\begin_inset Formula 
+\[
+\left(A+I\beta\right)^{\top}P+P\left(A+I\beta\right)+Q-PBR^{-1}B^{\top}P=0
+\]
+
+\end_inset
+
+then
+\begin_inset Formula 
+\[
+\tilde{J}_{LQR}=H(\tilde{x},\tilde{u})+\int_{0}^{\infty}\left(\tilde{u}^{\top}+\tilde{x}^{\top}K^{\top}\right)R\left(\tilde{u}+K\tilde{x}\right)dt
+\]
+
+\end_inset
+
+and if we select 
+\begin_inset Formula $\tilde{u}=-K\tilde{x}$
+\end_inset
+
+ then
+\begin_inset Formula 
+\begin{eqnarray*}
+\tilde{J}_{LQR} & = & H(\tilde{x},\tilde{u})+\int_{0}^{\infty}0dt\\
+\tilde{J}_{LQR} & = & H(\tilde{x},\tilde{u})\\
+\tilde{J}_{LQR} & = & x_{0}Px_{0}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using the change of variables, to get the input 
+\begin_inset Formula $u$
+\end_inset
+
+ we get
+\begin_inset Formula 
+\begin{eqnarray*}
+\tilde{u} & = & -K\tilde{x}\\
+e^{\beta t}u & = & -Ke^{\beta t}x\\
+u & = & -Kx
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+b)
+\end_layout
+
+\begin_layout Standard
+What is the minimum possible value for this new objective function?
+\end_layout
+
+\begin_layout Standard
+Using the previous section 
+\begin_inset Formula $\tilde{J}_{LQR}=x_{0}Px_{0}$
+\end_inset
+
+which is the minimum possible value.
+\end_layout
+
+\begin_layout Subsection*
+c) 
+\end_layout
+
+\begin_layout Standard
+How does adding the exponential effect the LQR result?
+\end_layout
+
+\begin_layout Standard
+The gain matrix 
+\begin_inset Formula $K$
+\end_inset
+
+ is a function of 
+\begin_inset Formula $P$
+\end_inset
+
+ which is obtained from the ARE
+\begin_inset Formula 
+\[
+\left(A+I\beta\right)^{\top}P+P\left(A+I\beta\right)+Q-PBR^{-1}B^{\top}P=0
+\]
+
+\end_inset
+
+If the exponential 
+\begin_inset Formula $e^{2Bt}$
+\end_inset
+
+wasn't there, then the ARE would be
+\begin_inset Formula 
+\[
+A^{\top}P+PA+Q-PBR^{-1}B^{\top}P=0
+\]
+
+\end_inset
+
+and have a different value for 
+\begin_inset Formula $P$
+\end_inset
+
+, thus the gain matrix 
+\begin_inset Formula $K$
+\end_inset
+
+ would also be different.
+ 
+\end_layout
+
+\begin_layout Section*
+Question 3
+\end_layout
+
+\begin_layout Standard
+Determine if each of the following statements are true or false.
+ Justify your answer
+\end_layout
+
+\begin_layout Subsection*
+a)
+\end_layout
+
+\begin_layout Standard
+The system
+\begin_inset Formula 
+\begin{eqnarray*}
+\dot{x} & = & \begin{bmatrix}-2 & 4\\
+1 & 1
+\end{bmatrix}x+\begin{bmatrix}1\\
+1
+\end{bmatrix}u\\
+y & = & \begin{bmatrix}1 & 0\end{bmatrix}x
+\end{eqnarray*}
+
+\end_inset
+
+is BIBO stable, but no internally stable.
+\end_layout
+
+\begin_layout Standard
+For internal stability, the real part of the eigen values of the state transitio
+n model 
+\begin_inset Formula $\begin{bmatrix}-2 & 4\\
+1 & 1
+\end{bmatrix}$
+\end_inset
+
+ must be greater than 0.
+ Using matlab,
+\begin_inset Formula $\text{eig \begin{bmatrix}-2  &  4\\
+ 1  &  1 
+\end{bmatrix}=}-3,2$
+\end_inset
+
+, thus it isn't internally stable.
+\end_layout
+
+\begin_layout Standard
+For BIBO stability, every pole of the transfer function 
+\begin_inset Formula $G(s)=C\left(sI-A\right)B$
+\end_inset
+
+ must have a magnitude less than zero.
+\begin_inset Formula 
+\begin{eqnarray*}
+G(s) & = & C\left(sI-A\right)^{-1}B\\
+ & = & -8/(s^{2}+s-6)\\
+ & = & \frac{-8}{\left(s+3\right)(s-2)}
+\end{eqnarray*}
+
+\end_inset
+
+Since 
+\begin_inset Formula $G(s)$
+\end_inset
+
+ has poles greater than zero, the system is not BIBO stable.
+ Thus the statement is 
+\series bold
+False
+\series default
+.
+\end_layout
+
+\begin_layout Subsection*
+b)
+\end_layout
+
+\begin_layout Standard
+The state transition matrix for the hommogenous equation
+\begin_inset Formula 
+\[
+\dot{x}=\begin{bmatrix}0 & 0\\
+t & 0
+\end{bmatrix}x
+\]
+
+\end_inset
+
+is
+\begin_inset Formula 
+\[
+\Phi\left(t,t_{0}\right)=\begin{bmatrix}1 & 0\\
+\frac{1}{2}\left(t^{2}-t_{0}^{2}\right) & 1
+\end{bmatrix}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using property 5.1 from the book.
+ For every 
+\begin_inset Formula $t_{0}\geq0,\Phi(t,t_{0})$
+\end_inset
+
+ is the unique solution to
+\begin_inset Formula 
+\[
+\frac{d}{dt}\Phi\left(t,t_{0}\right)=A\Phi\left(t,t_{0}\right)
+\]
+
+\end_inset
+
+thus
+\begin_inset Formula 
+\[
+A=\left(\frac{d}{dt}\Phi\left(t,t_{0}\right)\right)\Phi\left(t,t_{0}\right)^{-1}
+\]
+
+\end_inset
+
+using Matlab
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{d}{dt}\Phi\left(t,t_{0}\right) & = & \begin{bmatrix}0 & 0\\
+t & 0
+\end{bmatrix}\\
+\Phi\left(t,t_{0}\right)^{-1} & = & \begin{bmatrix}1 & 0\\
+\frac{-1}{2}\left(t^{2}-t_{0}^{2}\right) & 1
+\end{bmatrix}
+\end{eqnarray*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+A & = & \left(\frac{d}{dt}\Phi\left(t,t_{0}\right)\right)\Phi\left(t,t_{0}\right)^{-1}\\
+ & = & \begin{bmatrix}0 & 0\\
+t & 0
+\end{bmatrix}\begin{bmatrix}1 & 0\\
+\frac{-1}{2}\left(t^{2}-t_{0}^{2}\right) & 1
+\end{bmatrix}\\
+ & = & \begin{bmatrix}0 & 0\\
+t & 0
+\end{bmatrix}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus this statement is 
+\series bold
+true
+\series default
+.
+\end_layout
+
+\begin_layout Subsection*
+c)
+\end_layout
+
+\begin_layout Standard
+The homogenous equation described in (b) is asymptotically stable for 
+\begin_inset Formula $t_{0}\geq0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The system is asymptotically stable if for every initial condition 
+\begin_inset Formula $x\left(t_{0}\right)=x_{0}\in\mathbb{R}^{n}$
+\end_inset
+
+ , we have that 
+\begin_inset Formula $x(t)\rightarrow0$
+\end_inset
+
+ as 
+\begin_inset Formula $t\rightarrow\infty$
+\end_inset
+
+.
+ I will prove this statement 
+\series bold
+false
+\series default
+ by contradiction.
+\begin_inset Formula 
+\[
+x(t)=\begin{bmatrix}1 & 0\\
+\frac{1}{2}\left(t^{2}-t_{0}^{2}\right) & 1
+\end{bmatrix}x_{0}
+\]
+
+\end_inset
+
+Let 
+\begin_inset Formula $x_{0}=\begin{bmatrix}1 & 0\end{bmatrix}^{\top}$
+\end_inset
+
+then
+\begin_inset Formula 
+\[
+x(t)=\begin{bmatrix}1\\
+\frac{1}{2}\left(t^{2}-t_{0}^{2}\right)
+\end{bmatrix}
+\]
+
+\end_inset
+
+as 
+\begin_inset Formula $t\rightarrow\infty$
+\end_inset
+
+ , 
+\begin_inset Formula $x(t)\rightarrow\infty$
+\end_inset
+
+.
+ Thus the system isn't asympotically stable for every initial condition
+ and the statement is 
+\series bold
+false
+\series default
+.
+\end_layout
+
+\begin_layout Subsection*
+d)
+\end_layout
+
+\begin_layout Standard
+Controllability for an LTI system is invariant under any equivalence transformat
+ion.
+\end_layout
+
+\begin_layout Standard
+This is 
+\series bold
+True
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+An equivalence tranformation 
+\begin_inset Formula $T:x\rightarrow\bar{x}$
+\end_inset
+
+ is a nonsingular matrix.
+ And according to property P4.2 in the book, they are zero-state equivalent
+ and have the same transfer function.
+ Thus they will have the same controller connonical form and same controllabilit
+y.
+ 
+\end_layout
+
+\begin_layout Section*
+Question 4
+\end_layout
+
+\begin_layout Standard
+The Matlab file sat.mat provides a satellite pointing model.
+ There are 18 states in this model with the first three being angles 
+\begin_inset Formula $\theta(t)$
+\end_inset
+
+(roll,pith,yaw), and states 10-12 being three angular velocities 
+\begin_inset Formula $\omega(t)$
+\end_inset
+
+(roll rate, pitch rate, and yaw rate).
+ The other states model structural modes due to the solar panels and payload.
+ The inputs to t his sytem are torques along each pointing direction.
+ Assume that what the satellite measures, as defined by the C matrix in
+ sat.mat, is approximately the pointing angles and the angular velocities.
+\end_layout
+
+\begin_layout Standard
+You may find all or some of the Matlab Commands lqr, lqe, kalman, and initial
+ useful for this problem.
+\end_layout
+
+\begin_layout Subsection*
+a)
+\end_layout
+
+\begin_layout Standard
+Design a controller that will minimize uncertainty in the measured states
+ and regulate the system to its equilibrium.
+ The state space system is:
+\begin_inset Formula 
+\begin{eqnarray*}
+\dot{x} & = & Ax+Bu+bd\\
+y & = & Cx+n\\
+ & = & \begin{bmatrix}\theta\\
+\omega
+\end{bmatrix}+\begin{bmatrix}n_{\theta}\\
+n_{\omega}
+\end{bmatrix}
+\end{eqnarray*}
+
+\end_inset
+
+With the disturbances being modelled as 
+\begin_inset Formula $\mathcal{N}\thicksim\left(0,D\right)$
+\end_inset
+
+ where 
+\begin_inset Formula $D=BD_{1}B^{\top}$
+\end_inset
+
+ and 
+\begin_inset Formula $D_{1}=10^{-3}I_{3x3}$
+\end_inset
+
+.
+ The noise being 
+\begin_inset Formula $\mathcal{N}\thicksim\left(0,N\right)$
+\end_inset
+
+ where 
+\begin_inset Formula $N=\text{diag}\left[N_{\theta},N_{\omega}\right]$
+\end_inset
+
+ and 
+\begin_inset Formula $ $
 \end_inset
 
 
