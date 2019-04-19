@@ -233,7 +233,7 @@ Linearize the system around all the equilibrium points
 \begin_inset Formula $u_{eq}$
 \end_inset
 
- compute in part b.
+ computed in part b.
 \begin_inset Formula 
 \begin{eqnarray*}
 \delta\dot{x} & = & \frac{\partial f}{\partial x}|_{x_{eq},u_{eq}}\delta x+\frac{\partial f}{\partial u}|_{x_{eq},u_{eq}}\delta u\\
@@ -480,7 +480,7 @@ as long as
  & = & \int_{0}^{\infty}e^{2\beta t}\left(e^{-2\beta t}\tilde{x}^{\top}Q\tilde{x}+e^{-2\beta t}\tilde{u}^{\top}R\tilde{u}\right)dt\\
  & = & \int_{0}^{\infty}\left(\tilde{x}^{\top}Q\tilde{x}+\tilde{u}^{\top}R\tilde{u}\right)dt\\
  & = & H(\tilde{x},\tilde{u})+\int_{0}^{\infty}\left(\tilde{x}^{\top}Q\tilde{x}+\tilde{u}^{\top}R\tilde{u}\right)dt-H(\tilde{x},\tilde{u})\\
- & = & H(\tilde{x},\tilde{u})+\int_{0}^{\infty}\left(\tilde{x}^{\top}Q\tilde{x}+\tilde{u}^{\top}R\tilde{u+\left(\left(A+I\beta\right)\tilde{x}+B\tilde{u}\right)^{\top}P\tilde{x}+\tilde{x}^{\top}P\left(\left(A+I\beta\right)\tilde{x}+B\tilde{u}\right)}\right)dt\\
+ & = & H(\tilde{x},\tilde{u})+\int_{0}^{\infty}\left(\tilde{x}^{\top}Q\tilde{x}+\tilde{u}^{\top}R\tilde{u}+\left(\left(A+I\beta\right)\tilde{x}+B\tilde{u}\right)^{\top}P\tilde{x}+\tilde{x}^{\top}P\left(\left(A+I\beta\right)\tilde{x}+B\tilde{u}\right)\right)dt\\
  & = & H(\tilde{x},\tilde{u})+\int_{0}^{\infty}\left(\tilde{x}^{\top}\left(\left(A+I\beta\right)^{\top}P+P\left(A+I\beta\right)+Q\right)\tilde{x}+\tilde{u}^{\top}R\tilde{u}+2\tilde{u}BP\tilde{x}\right)dt
 \end{eqnarray*}
 
@@ -660,7 +660,7 @@ n model
 \end{bmatrix}$
 \end_inset
 
- must be greater than 0.
+ must be less than 0.
  Using matlab,
 \begin_inset Formula $\text{eig \begin{bmatrix}-2  &  4\\
  1  &  1 
@@ -1336,18 +1336,22 @@ G_{c2}=\frac{\omega_{0}}{s^{2}+\omega_{0}^{2}}
 \end_inset
 
  For the augmented state space system let 
-\begin_inset Formula $A_{c},B_{c},C_{c}$
+\begin_inset Formula $A_{c1},B_{c1},C_{c1}$
 \end_inset
 
  be the realization of 
 \begin_inset Formula $G_{c1}$
 \end_inset
 
-, then augmented state space system can be reduced to.
+, then the augmented state space system can be reduced to.
 \begin_inset Formula 
 \begin{eqnarray*}
-\dot{\zeta} & = & A_{c}\zeta+B_{c}\tilde{y}(t)\\
-u & = & C_{c}\zeta-\sin\left(aw_{0}t\right)
+\begin{bmatrix}\dot{z}\\
+\dot{\zeta}
+\end{bmatrix} & = & \begin{bmatrix}A_{c1}z+B_{c1}\tilde{y}(t)\\
+-\cos\left(aw_{0}t\right)+C_{c1}z
+\end{bmatrix}\\
+u & = & \zeta
 \end{eqnarray*}
 
 \end_inset
@@ -1357,7 +1361,15 @@ u & = & C_{c}\zeta-\sin\left(aw_{0}t\right)
 
 \begin_layout Standard
 I feel like something is wrong, but I don't know how to fix it.
- 
+ I know that somwhere in the input 
+\begin_inset Formula $u$
+\end_inset
+
+ there should be a 
+\begin_inset Formula $-\sin\left(aw_{o}t\right)$
+\end_inset
+
+.
 \end_layout
 
 \end_body

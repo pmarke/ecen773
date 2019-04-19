@@ -1336,23 +1336,40 @@ G_{c2}=\frac{\omega_{0}}{s^{2}+\omega_{0}^{2}}
 \end_inset
 
  For the augmented state space system let 
-\begin_inset Formula $A_{c},B_{c},C_{c}$
+\begin_inset Formula $A_{c1},B_{c1},C_{c1}$
 \end_inset
 
  be the realization of 
 \begin_inset Formula $G_{c1}$
 \end_inset
 
-, then
+, then the augmented state space system can be reduced to.
 \begin_inset Formula 
 \begin{eqnarray*}
-\dot{\zeta} & = & A_{c}\zeta+B_{c}error\\
-u & = & C_{c}\zeta-\sin\left(aw_{0}t\right)
+\begin{bmatrix}\dot{z}\\
+\dot{\zeta}
+\end{bmatrix} & = & \begin{bmatrix}A_{c1}z+B_{c1}\tilde{y}(t)\\
+-\cos\left(aw_{0}t\right)+C_{c1}z
+\end{bmatrix}\\
+u & = & \zeta
 \end{eqnarray*}
 
 \end_inset
 
- 
+
+\end_layout
+
+\begin_layout Standard
+I feel like something is wrong, but I don't know how to fix it.
+ I know that somwhere in the input 
+\begin_inset Formula $u$
+\end_inset
+
+ there should be a 
+\begin_inset Formula $-\sin\left(aw_{o}t\right)$
+\end_inset
+
+.
 \end_layout
 
 \end_body
