@@ -157,6 +157,8 @@ subplot(2,1,2)
  ueq = -B \ A*xeq;
  A*xeq + B*ueq;
  
+ C = [1 0 0 0; 0 -1 0 1];
+ 
  SYSk = ss(A, [B B*B'],C,0);
  
  R = diag([1,10^-5]);
@@ -199,9 +201,9 @@ subplot(2,1,2)
  legend("True", "Estimate")
  
  subplot(4,1,4);
- plot(t,x(:,4));
+ plot(tk,xk(:,4));
  hold on
- plot(t,x(:,8));
+ plot(tk,xk(:,8));
  title("Pitch")
  xlabel("time (s)");
  ylabel("rads");

@@ -1,0 +1,425 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+ECEN 773 Final
+\end_layout
+
+\begin_layout Author
+Mark Petersen
+\end_layout
+
+\begin_layout Section*
+Question 1
+\end_layout
+
+\begin_layout Standard
+A magnetically suspended ball can be modeled by the following nonlinear
+ dynamics:
+\begin_inset Formula 
+\[
+\ddot{y}=1-\frac{u^{2}}{y^{2}}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $y$
+\end_inset
+
+ denotes the vertical posisiton of the ball and 
+\begin_inset Formula $u$
+\end_inset
+
+ an input current.
+ All untis have been appropriately normalized.
+\end_layout
+
+\begin_layout Subsection*
+a) 
+\end_layout
+
+\begin_layout Standard
+Compute a nonlinear state space model for the system with state variable
+ 
+\begin_inset Formula $x=\begin{bmatrix}x_{1}\\
+x_{2}
+\end{bmatrix}=\begin{bmatrix}y\\
+\dot{y}
+\end{bmatrix}$
+\end_inset
+
+ and output 
+\begin_inset Formula $y$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+x=\begin{bmatrix}x_{1}\\
+x_{2}
+\end{bmatrix},\quad\dot{x}=\begin{bmatrix}\dot{x}_{1}\\
+\dot{x}_{2}
+\end{bmatrix}=\begin{bmatrix}\dot{y}\\
+\ddot{y}
+\end{bmatrix}
+\]
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\begin{eqnarray*}
+\dot{x} & = & \begin{bmatrix}x_{2}\\
+1-\frac{u^{2}}{x_{1}^{2}}
+\end{bmatrix}=f\left(x,u\right)\\
+y & = & x_{1}=h(x,u)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+b)
+\end_layout
+
+\begin_layout Standard
+What equilibrium control input 
+\begin_inset Formula $u_{eq}$
+\end_inset
+
+ is needed to suspend the ball fixed at 
+\begin_inset Formula $y_{eq}=x_{1_{eq}}=1$
+\end_inset
+
+.
+ Is there more than one control?
+\end_layout
+
+\begin_layout Standard
+At equilibrium 
+\begin_inset Formula $\dot{x}=0$
+\end_inset
+
+.
+ Thus we need to find a 
+\begin_inset Formula $u_{eq}$
+\end_inset
+
+such that 
+\begin_inset Formula $f\left(x_{eq},u_{eq}\right)=0.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\begin{bmatrix}x_{2}\\
+1-\frac{u^{2}}{x_{1}^{2}}
+\end{bmatrix}=\begin{bmatrix}x_{2}\\
+1-\frac{u^{2}}{1^{2}}
+\end{bmatrix}=\begin{bmatrix}0\\
+0
+\end{bmatrix}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus 
+\begin_inset Formula $x_{eq}=\begin{bmatrix}1 & 0\end{bmatrix}^{\top}$
+\end_inset
+
+, 
+\begin_inset Formula $u_{eq}=1,-1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+c)
+\end_layout
+
+\begin_layout Standard
+Linearize the system around all the equilibrium points 
+\begin_inset Formula $x_{eq}$
+\end_inset
+
+, 
+\begin_inset Formula $u_{eq}$
+\end_inset
+
+ compute in part b.
+\begin_inset Formula 
+\begin{eqnarray*}
+\delta\dot{x} & = & \frac{\partial f}{\partial x}|_{x_{eq},u_{eq}}\delta x+\frac{\partial f}{\partial u}|_{x_{eq},u_{eq}}\delta u\\
+\delta\dot{y} & = & \frac{\partial h}{\partial x}|_{x_{eq},u_{eq}}\delta x+\frac{\partial h}{\partial u}|_{x_{eq},u_{eq}}\delta u
+\end{eqnarray*}
+
+\end_inset
+
+For system 1,
+\begin_inset Formula $x_{eq}=\begin{bmatrix}1 & 0\end{bmatrix}^{\top}$
+\end_inset
+
+, 
+\begin_inset Formula $u_{eq}=1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\delta\dot{x} & = & \begin{bmatrix}0 & 1\\
+\frac{u^{2}}{x_{1}^{3}} & 0
+\end{bmatrix}|_{x_{eq},u_{eq}}\delta x+\begin{bmatrix}0\\
+\frac{-2u}{x_{1}^{2}}
+\end{bmatrix}|_{x_{eq},u_{eq}}\delta u\\
+ & = & \begin{bmatrix}0 & 1\\
+1 & 0
+\end{bmatrix}\delta x+\begin{bmatrix}0\\
+-2
+\end{bmatrix}\delta u
+\end{eqnarray*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\delta\dot{y}=\begin{bmatrix}1 & 0\end{bmatrix}\delta x+\begin{bmatrix}0\end{bmatrix}\delta u
+\]
+
+\end_inset
+
+For system 2,
+\begin_inset Formula $x_{eq}=\begin{bmatrix}1 & 0\end{bmatrix}^{\top}$
+\end_inset
+
+, 
+\begin_inset Formula $u_{eq}=-1$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\delta\dot{x} & = & \begin{bmatrix}0 & 1\\
+\frac{u^{2}}{x_{1}^{3}} & 0
+\end{bmatrix}|_{x_{eq},u_{eq}}\delta x+\begin{bmatrix}0\\
+\frac{-2u}{x_{1}^{2}}
+\end{bmatrix}|_{x_{eq},u_{eq}}\delta u\\
+ & = & \begin{bmatrix}0 & 1\\
+1 & 0
+\end{bmatrix}\delta x+\begin{bmatrix}0\\
+2
+\end{bmatrix}\delta u
+\end{eqnarray*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\delta\dot{y}=\begin{bmatrix}1 & 0\end{bmatrix}\delta x+\begin{bmatrix}0\end{bmatrix}\delta u
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+d)
+\end_layout
+
+\begin_layout Standard
+Classify the linearized systems in terms of internal stability.
+ What can you conclude about the nonlinear system?
+\end_layout
+
+\begin_layout Standard
+Since both systems have the same state transition matrix (
+\begin_inset Formula $A$
+\end_inset
+
+), then they will have the same internal stability.
+\begin_inset Formula 
+\[
+\text{eig\left(\begin{bmatrix}0 & 1\\
+1 & 0
+\end{bmatrix}\right)=}[-1,1]
+\]
+
+\end_inset
+
+thus the linearized systems are not internally stable since the state transition
+ matrix has an eigen value with a real part larger than zero.
+ This indicates that the nonlinear system is not internally stable about
+ these points.
+\end_layout
+
+\begin_layout Subsection*
+e)
+\end_layout
+
+\begin_layout Standard
+Are the linearized systems controllable? Observable?
+\end_layout
+
+\begin_layout Standard
+The linearized systems are controllable if the rank of the controllability
+ matrix is equal to the number of states.
+ Using matlab, the rank of the controllability matrix for both systems is
+ 2.
+ Thus both systems are controllable.
+ 
+\end_layout
+
+\begin_layout Standard
+The lienarized systems are observable if the rank of the observability matrix
+ is equal to the number of states.
+ Using matlab, the rank of the observability matrix for both systems is
+ 2.
+ Thus both systems are observable.
+\end_layout
+
+\begin_layout Section*
+Question 2
+\end_layout
+
+\begin_layout Standard
+Consider a variation of the LQR problem:
+\begin_inset Formula 
+\[
+J_{LQR}=\int_{0}^{\infty}e^{2\beta t}\left(x^{\top}Qx+u^{\top}Ru\right)dt
+\]
+
+\end_inset
+
+for 
+\begin_inset Formula $\beta\geq0,\beta\in\mathbb{R}$
+\end_inset
+
+, for the LTI system:
+\begin_inset Formula 
+\begin{eqnarray*}
+\dot{x}(t) & = & Ax+Bu\\
+x(0) & = & x_{0}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+a)
+\end_layout
+
+\begin_layout Standard
+Find an equivalent solution to the LQR problem as was derived in Lecture
+ 20, including defining a new feedback invariant, gain matrix (
+\begin_inset Formula $K$
+\end_inset
+
+), and Algebraic Riccati Equation (ARE).
+ Note: the following change of variables may be useful:
+\begin_inset Formula 
+\begin{eqnarray*}
+\tilde{x}(t) & = & e^{\beta t}x(t)\\
+\tilde{u}(t) & = & e^{\beta t}u(t)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
