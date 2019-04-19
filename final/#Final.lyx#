@@ -1090,5 +1090,274 @@ Ensure that the control effort required to stabilize your initial input(
 See matlab.
 \end_layout
 
+\begin_layout Subsection*
+c) 
+\end_layout
+
+\begin_layout Standard
+Now, assume that you want to perfectly track a constant step input for one
+ of the pointing angle directions 
+\begin_inset Formula $\theta_{d}$
+\end_inset
+
+.
+ Can your controller achieve this? If not, modify your controller so that
+ this can be achieved.
+\end_layout
+
+\begin_layout Standard
+See matlab.
+\end_layout
+
+\begin_layout Section*
+Question 5
+\end_layout
+
+\begin_layout Standard
+In class we learned that when the open loop system 
+\begin_inset Formula $L=G_{c}(s)G_{p}(s)$
+\end_inset
+
+ has a model of the reference signal we want to track (i.e.
+ 
+\begin_inset Formula $y_{d}(t)$
+\end_inset
+
+ is a step input and 
+\begin_inset Formula $L$
+\end_inset
+
+ contains an integrator) then we will be able to track that reference perfectly.
+ Assum now that we have a time-varying input disturbance 
+\begin_inset Formula $d(t)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+a)
+\end_layout
+
+\begin_layout Standard
+Show that to perfectly reject disturbances 
+\begin_inset Formula $d(t)$
+\end_inset
+
+ the compensator 
+\begin_inset Formula $G_{c}(s)$
+\end_inset
+
+ (rather than the open loop 
+\begin_inset Formula $L=G_{c}(s)G_{p}(s)$
+\end_inset
+
+ must be the one that contains the model of the input disturbance.
+\end_layout
+
+\begin_layout Standard
+The closed loop dynamics are
+\begin_inset Formula 
+\begin{eqnarray*}
+Y(s) & = & G_{p}(s)\left(D(s)+G_{c}(s)\left(Y_{d}(s)-Y(s)\right)\right)\\
+ & = & G_{p}(s)D(s)+G_{p}(s)G_{c}(s)Y_{d}(s)-G_{p}(s)G_{c}(s)Y(s)\\
+ & = & \frac{G_{p}(s)}{I+G_{p}(s)G_{c}(s)}D(s)+\frac{G_{p}(s)G_{c}(s)}{I+G_{p}(s)G_{c}(s)}Y_{d}(s)
+\end{eqnarray*}
+
+\end_inset
+
+Since we are only interested in disturbances we can look at the transfer
+ function 
+\begin_inset Formula $H_{d}(s):D(s)\rightarrow Y(s)$
+\end_inset
+
+.
+\begin_inset Formula 
+\begin{eqnarray*}
+Y(s) & = & \frac{G_{p}(s)}{I+G_{p}(s)G_{c}(s)}D(s)\\
+ & = & \frac{G_{p}(s)}{G_{p}(s)\left(G_{p}^{-1}(s)+G_{c}(s)\right)}D(s)\\
+ & = & \frac{1}{\left(G_{p}^{-1}(s)+G_{c}(s)\right)}D(s)
+\end{eqnarray*}
+
+\end_inset
+
+We want to know how much of the disturbance shows up on the output as 
+\begin_inset Formula $t\rightarrow\infty$
+\end_inset
+
+.
+\begin_inset Formula 
+\begin{eqnarray*}
+y(\infty) & = & sY(s)\lim_{s\rightarrow0}\\
+ & = & \lim_{s\rightarrow0}\frac{s}{\left(G_{p}^{-1}(s)+G_{c}(s)\right)}D(s)
+\end{eqnarray*}
+
+\end_inset
+
+Since 
+\begin_inset Formula $G_{p}(s)$
+\end_inset
+
+ is of the form 
+\begin_inset Formula 
+\[
+G_{p}(s)=\frac{b_{n}s^{n}+b_{n-1}s^{n-1}\ldots b_{0}}{a_{m}s^{m}+a_{m-1}s^{m-1}\ldots a_{0}}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $n\leq m$
+\end_inset
+
+ for a realizable system, then 
+\begin_inset Formula $G_{p}^{-1}(s)=a_{0}/b_{0}$
+\end_inset
+
+if 
+\begin_inset Formula $n=m$
+\end_inset
+
+ or 
+\begin_inset Formula $G_{p}^{-1}(s)=0$
+\end_inset
+
+ if 
+\begin_inset Formula $n<m$
+\end_inset
+
+.
+ In this problem, I will assume that 
+\begin_inset Formula $n<m$
+\end_inset
+
+ and the 
+\begin_inset Formula $D$
+\end_inset
+
+ matrix is the zero matrix.
+ Thus
+\begin_inset Formula 
+\begin{eqnarray*}
+y(\infty) & = & \lim_{s\rightarrow0}\frac{s}{\left(G_{p}^{-1}(s)+G_{c}(s)\right)}D(s)\\
+ & = & \lim_{s\rightarrow0}\frac{s}{\left(0+G_{c}(s)\right)}D(s)\\
+ &  & \lim_{s\rightarrow0}s\frac{D(s)}{G_{c}(s)}
+\end{eqnarray*}
+
+\end_inset
+
+This shows that for 
+\begin_inset Formula $y(\infty)=0$
+\end_inset
+
+.
+ Only the controller can compenate for these distrubances.
+\end_layout
+
+\begin_layout Subsection*
+b)
+\end_layout
+
+\begin_layout Standard
+Assume that you want to reject a sinusoidal time-varying disturbance, 
+\begin_inset Formula $d(t)=\sin\left(a\omega_{0}t\right)u(t)$
+\end_inset
+
+.
+ Create an augmented state-space system capable of perfectly tracking this
+ disturbance.
+\begin_inset Formula 
+\[
+D(s)=\frac{\omega_{0}}{s^{2}+\omega_{0}^{2}}
+\]
+
+\end_inset
+
+To track the disturbance, I will augment the controller transfer function.
+\begin_inset Formula 
+\[
+G_{c}=G_{c2}G_{c1}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $G_{c1}$
+\end_inset
+
+ is the transfer function of the original controller and 
+\begin_inset Formula $G_{c2}$
+\end_inset
+
+ is the transfer function of the controller portion being added to account
+ for the disturbance 
+\begin_inset Formula $D(s)$
+\end_inset
+
+.
+ I need the denominator of 
+\begin_inset Formula $G_{c2}$
+\end_inset
+
+ to be equal to the denominator of 
+\begin_inset Formula $D(s)$
+\end_inset
+
+ such that 
+\begin_inset Formula 
+\begin{eqnarray*}
+Y(s) & = & G_{c2}^{-1}(G_{p}^{-1}(s)+G_{c1}(s))^{-1}D(s)\\
+ & = & \left(s^{2}+w_{o}^{2}\right)\left(G_{p}^{-1}(s)+G_{c1}(s)\right){}^{-1}\left(\frac{\omega_{0}}{s^{2}+\omega_{0}^{2}}\right)\\
+ & = & \left(G_{p}^{-1}(s)+G_{c1}(s)\right){}^{-1}\omega_{0}
+\end{eqnarray*}
+
+\end_inset
+
+and
+\begin_inset Formula 
+\begin{eqnarray*}
+y(\infty) & = & \lim_{s\rightarrow0}s\left(G_{p}^{-1}(s)+G_{c1}(s)\right){}^{-1}\omega_{0}\\
+ & = & 0\left(G_{p}^{-1}(0)+G_{c1}(0)\right){}^{-1}\omega_{0}\\
+ & = & 0
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For this, let
+\begin_inset Formula 
+\[
+G_{c2}=\frac{\omega_{0}}{s^{2}+\omega_{0}^{2}}
+\]
+
+\end_inset
+
+ For the augmented state space system let 
+\begin_inset Formula $A_{c},B_{c},C_{c}$
+\end_inset
+
+ be the realization of 
+\begin_inset Formula $G_{c1}$
+\end_inset
+
+, then augmented state space system can be reduced to.
+\begin_inset Formula 
+\begin{eqnarray*}
+\dot{\zeta} & = & A_{c}\zeta+B_{c}\tilde{y}(t)\\
+u & = & C_{c}\zeta-\sin\left(aw_{0}t\right)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I feel like something is wrong, but I don't know how to fix it
+\end_layout
+
 \end_body
 \end_document

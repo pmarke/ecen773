@@ -42,8 +42,8 @@ for ii=1:length(eig_A)
 end
 % The value of stabilizable is still 1. So the system is stabilizable.
 
-%%% Now that I know that the system is both stabilizable and detectable, I
-%%% can start to create an LQR and LQG controller. 
+%%%% Now that I know that the system is both stabilizable and detectable, I
+%%%% can start to create an LQR and LQG controller. 
 
 %%%% LQR
 % I will use Bryson's rule to create my Q1 and R1 matrices as a starting point for
@@ -55,7 +55,7 @@ Q = q*Q1;
 
 max_u = 1;                      % Desired maximum input deviation from equilibrium.
 R1 = diag(ones(3,1)/max_u^2);
-r = diag([5,2000,120]);              % Used to tune performance.
+r = diag([5,2000,120]);        % Used to tune performance to meet input constraints.
 R=r*R1;
 
 [K,S,E] = lqr(A,B,Q,R);
@@ -72,7 +72,7 @@ Nk = diag([ones(3,1)*10^-5;ones(3,1)*10^-10]);
 L
 eig(A-L*C);   % Ensure that the eigen values are all less than zero.
 
-%%% Plot the results of the controller.
+%%%% Plot the results of the controller.
 figure(1),clf;
 initial(ss(A-B*K,B*0,C,D),ones(18,1));
 
